@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("quiz-app")
+@RequestMapping("quiz-app/quiz")
 public class QuizController {
 
     private final QuizService quizService;
@@ -27,13 +27,13 @@ public class QuizController {
     }
 
     // get all quizzes
-    @GetMapping("/quiz/allQuizzes")
+    @GetMapping("/allQuizzes")
     public ResponseEntity<List<Quiz>> getAllQuizzes() {
         return new ResponseEntity<>(quizService.getAllQuizzes(), HttpStatus.OK);
     }
 
     // create quiz
-    @PostMapping("/quiz/create")
+    @PostMapping("/create")
     public ResponseEntity<Quiz> createQuiz(@RequestBody QuizDTO quizDTO) {
         return new ResponseEntity<>(
                 quizService.createQuiz(
@@ -46,12 +46,12 @@ public class QuizController {
     }
 
     // get questions from quiz
-    @GetMapping(value = "/quiz/", params = "id")
+    @GetMapping(value = "/", params = "id")
     public ResponseEntity<List<QuestionWrapper>> getQuizQuestions(@RequestParam int id) {
         return new ResponseEntity<>(quizService.getQuizQuestions(id), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/quiz/submit/", params = "quizId")
+    @PostMapping(value = "/submit/", params = "quizId")
     public ResponseEntity<Integer> submitAnswer(@RequestParam Integer quizId , @RequestBody List<QuizResponse> responses) {
         return new ResponseEntity<>(quizService.calculateResult(quizId, responses), HttpStatus.OK);
     }

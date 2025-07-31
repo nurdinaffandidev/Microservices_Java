@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("quiz-app")
+@RequestMapping("quiz-app/question")
 public class QuestionController {
 
     private final QuestionService questionService;
@@ -22,7 +22,7 @@ public class QuestionController {
         this.questionService = questionService;
     }
 
-    @GetMapping(value = "/question", params = "!id")
+    @GetMapping(value = "/", params = "!id")
     public String greet(HttpServletRequest request) {
         return "Welcome To QuizApp Question Controller";
     }
@@ -34,33 +34,33 @@ public class QuestionController {
     }
 
     // get questions by category
-    @GetMapping("/question/category/{category}")
+    @GetMapping("/category/{category}")
     public ResponseEntity<List<Question>> getQuestionsByCategory(@PathVariable String category) {
         return new ResponseEntity<>(questionService.getQuestionsByCategory(category), HttpStatus.OK);
     }
 
     // get question by id
-    @GetMapping(value = "/question", params = "id")
+    @GetMapping(value = "/", params = "id")
     public ResponseEntity<Question> getQuestionById(@RequestParam int id) {
         return new ResponseEntity<>(questionService.getQuestionById(id), HttpStatus.OK);
     }
 
     // add question
-    @PostMapping("/question/add-question")
+    @PostMapping("/add-question")
     public ResponseEntity<String> addQuestion(@Valid @RequestBody Question question) {
         Question addedQuestion = questionService.addQuestion(question);
         return new ResponseEntity<>("Question successfully added, id: " + addedQuestion.getId(), HttpStatus.CREATED);
     }
 
     // delete question
-    @DeleteMapping("/question/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Question> deleteQuestion(@PathVariable int id) {
         Question questionToDelete = questionService.deleteQuestion(id);
         return new ResponseEntity<>(questionToDelete, HttpStatus.OK);
     }
 
     // generate questions
-    @GetMapping("/question/generate")
+    @GetMapping("/generate")
     public ResponseEntity<List<Question>> generateQuestion(@RequestParam String category, @RequestParam int numQuestions) {
         return new ResponseEntity<>(questionService.generateQuestions(category, numQuestions), HttpStatus.OK);
     }
