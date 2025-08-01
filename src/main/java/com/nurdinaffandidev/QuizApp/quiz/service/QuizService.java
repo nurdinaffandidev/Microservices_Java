@@ -1,6 +1,5 @@
 package com.nurdinaffandidev.QuizApp.quiz.service;
 
-import com.nurdinaffandidev.QuizApp.question.exception.QuestionNotFoundException;
 import com.nurdinaffandidev.QuizApp.question.model.Question;
 import com.nurdinaffandidev.QuizApp.question.model.QuestionWrapper;
 import com.nurdinaffandidev.QuizApp.question.service.QuestionService;
@@ -61,7 +60,7 @@ public class QuizService {
         int correctAnswer = 0;
 
         Quiz quiz = quizRepository.findById(quizId)
-                .orElseThrow(() -> new QuestionNotFoundException("Quiz with id= " + quizId + " not found."));
+                .orElseThrow(() -> new QuizNotFoundException("Quiz with id= " + quizId + " not found."));
 
         List<Question> quizQuestions = quiz.getQuestions();
         System.out.println("quizQuestions= ");
