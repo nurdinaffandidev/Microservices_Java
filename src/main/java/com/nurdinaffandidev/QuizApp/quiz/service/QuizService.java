@@ -4,6 +4,7 @@ import com.nurdinaffandidev.QuizApp.question.exception.QuestionNotFoundException
 import com.nurdinaffandidev.QuizApp.question.model.Question;
 import com.nurdinaffandidev.QuizApp.question.model.QuestionWrapper;
 import com.nurdinaffandidev.QuizApp.question.service.QuestionService;
+import com.nurdinaffandidev.QuizApp.quiz.exception.QuizNotFoundException;
 import com.nurdinaffandidev.QuizApp.quiz.model.Quiz;
 import com.nurdinaffandidev.QuizApp.quiz.model.QuizResponse;
 import com.nurdinaffandidev.QuizApp.quiz.repository.QuizRepository;
@@ -40,7 +41,7 @@ public class QuizService {
 
     public List<QuestionWrapper> getQuizQuestions(Integer id) {
         Quiz quiz = quizRepository.findById(id)
-                .orElseThrow(() -> new QuestionNotFoundException("Quiz with id= " + id + " not found."));
+                .orElseThrow(() -> new QuizNotFoundException("Quiz with id= " + id + " not found."));
 
         List<QuestionWrapper> cleanedQuestions = new ArrayList<>();
         quiz.getQuestions().forEach( question -> {
